@@ -10,6 +10,7 @@ NOTES:
 - MAKE SURE TO DELETE ALL FILES FROM 'tempdata' FOLDER AFTER EACH USE!!!!!!
 - EXCEL SUMMARY FILE IS SAVED IN 'summaryTable_Iclamp.xlsx', IN THE SAME DIRECTORY AS THIS SCRIPT!!! 
 - Don't touch the analysis mode.
-- Also the trace viewer is still under construction, so please refer to the popup figures for the graphs.
+- the popup figures appear in the order in which the files were selected.
 
+  
 For any questions or concerns, please feel free to contact me at minegishis@brandeis.edu
