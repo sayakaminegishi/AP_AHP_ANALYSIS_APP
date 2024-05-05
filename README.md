@@ -12,5 +12,7 @@ NOTES:
 - Don't touch the analysis mode.
 - the popup figures appear in the order in which the files were selected.
 
-  
+
+The Trace Viewer is still under construction so please refer to the popup figures for graphics.
+
 For any questions or concerns, please feel free to contact me at minegishis@brandeis.edu
