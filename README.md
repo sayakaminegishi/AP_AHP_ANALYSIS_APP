@@ -1,6 +1,9 @@
 # AP_AHP_ANALYSIS_APP
 GUI ver. of my ap_ahp analysis program. 
 
+** Click on AP_AHP_ANALYSIS_APP.mlappinstall to install the app. Then run the app from the Apps section of your Matlab **
+
+
 Instructions: https://docs.google.com/document/d/1F5rO-wwT_e-YxTt98H9z_YhoMT0LXt-xFZLvzviX6W8/edit?usp=sharing
 
 Takes in one or more spontaneous current clamp files, does
