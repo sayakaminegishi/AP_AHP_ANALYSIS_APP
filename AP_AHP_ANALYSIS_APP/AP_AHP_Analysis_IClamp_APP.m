@@ -14,7 +14,7 @@ fig.Name = "AP_AHP_Analysis_IClamp_APP";
 %define grids
 g = uigridlayout(fig, [2,2]);
 g.RowHeight = {22,22,'1x'};
-g.ColumnWidth = {150,'1x'};
+g.ColumnWidth = {150,'1x'}; %
 
 %add panel
 p = uipanel(fig);
