@@ -1,13 +1,28 @@
 function AP_AHP_Analysis_IClamp_APP
+
 % This script is the GUI version my AP_AHP_Iclamp analysis program - for
-%  burst batch detection
+%  burst batch detection. Takes in one or more spontaneous current clamp files, does
+%  batch-analysis and gives their burst and properties of AP that occur as
+%  singlets (i.e. not part of a burst). Summary data is also exported in an
+%  excel file.
+
+% NOTE: MAKE SURE TO DELETE ALL FILES FROM 'tempdata' FOLDER AFTER EACH
+%USE!!!!!!
+% EXCEL SUMMARY FILE IS SAVED IN 'summaryTable_Iclamp.xlsx', IN THE SAME DIRECTORY AS THIS SCRIPT!!! 
+
+% Don't touch the analysis mode. Also the trace viewer is still under
+% construction, so please refer to the popup figures for the graphs.
+
+
+%note to self:
+%make it able to switch between analysis modes
+
 
 % Created by: Sayaka (Saya) Minegishi
 % Contact: minegishis@brandeis.edu
-% Last modified: May 4 2024
+% Last modified: May 5 2024
 
-%todo: 
-%add save as button with name of excel file for output
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clear all
 clf
@@ -65,9 +80,25 @@ browseButton.ButtonPushedFcn = @(btn,event) browseButtonCallback(fileEditField);
 
 
 % Axes
-ax = uiaxes(p);
-ax.Position = [10, p.Position(4)-250, 180, 100]; % Adjust position and size of the axes below the label
-title(ax, 'Trace Viewer'); %TODO: specify file name. make it be different for each trace
+% ax = uiaxes(p);
+% ax.Position = [10, p.Position(4)-250, 180, 100]; % Adjust position and size of the axes below the label
+% title(ax, 'Trace Viewer'); %TODO: specify file name. make it be different for each trace
+
+lbl_inst = uilabel(p);
+lbl_inst.Position = [10, p.Position(4)-250, 180, 100];
+lbl_inst.Text = ['GUI ver. of my ap_ahp analysis program. ...' ...
+    ['Takes in one or more spontaneous current clamp files, does batch-analysis ...' ...
+    ['and gives their burst and properties of AP that occur as singlets (i.e. not part of a burst).' ...
+    ' Summary data is also exported in an excel file."]]]
+
+NOTES:
+
+MAKE SURE TO DELETE ALL FILES FROM 'tempdata' FOLDER AFTER EACH USE!!!!!!
+EXCEL SUMMARY FILE IS SAVED IN 'summaryTable_Iclamp.xlsx', IN THE SAME DIRECTORY AS THIS SCRIPT!!!
+Don't touch the analysis mode.
+the popup figures appear in the order in which the files were selected.
+'''
+
 
 %% analysis results (p2)
 % label
@@ -122,18 +153,13 @@ analyzeButton.ButtonPushedFcn = @(btn,event) analyzeButtonCallback(ax, uit, uit2
 
 % label with creator info
 lbl_creator = uilabel(p);
-lbl_creator.Text = "Created by Sayaka (Saya) Minegishi | minegishis@brandeis.edu";
+lbl_creator.Text = "Created by Sayaka (Saya) Minegishi | minegishis@brandeis.edu | May 2024";
 lbl_creator.FontSize = 11;
 lbl_creator.HorizontalAlignment = 'center'; % Align text to the center horizontally
 lbl_creator.VerticalAlignment = 'bottom'; % Align text to the bottom vertically
 lbl_creator.Position = [10, 10, 180, 22]; % Adjust position to be at the bottom of p
 lbl_creator.WordWrap = 'on';
 
-
-%remove temporary directory at the very end 
-if exist(tempdata, 'dir')
-    rmdir tempdata
-end
 
 end
 
@@ -218,7 +244,7 @@ end
         filename = string(file_names{n});
         disp([int2str(n) '. Working on: ' filename])
         try
-            [singletAnalysisRow, T,fig_marked] = CMA_burst_analysis_feb17(filename); %get burst and singlet analysis for thsi cell
+            [singletAnalysisRow, T] = CMA_burst_analysis_feb17(filename); %get burst and singlet analysis for thsi cell
             burstT = [burstT; T];
             singT = [singT; singletAnalysisRow];
 

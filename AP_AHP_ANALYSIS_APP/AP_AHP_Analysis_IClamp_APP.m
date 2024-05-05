@@ -84,6 +84,10 @@ ax = uiaxes(p);
 ax.Position = [10, p.Position(4)-250, 180, 100]; % Adjust position and size of the axes below the label
 title(ax, 'Trace Viewer'); %TODO: specify file name. make it be different for each trace
 
+% lbl_inst = uilabel(p);
+% lbl_inst.Position = [10, p.Position(4)-250, 180, 100];
+% lbl_inst.Text = 'GUI ver. of my ap_ahp analysis program. Takes in one or more spontaneous current clamp files, does batch-analysis and gives their burst and properties of AP that occur as singlets (i.e. not part of a burst). Summary data is also exported in an excel file.';
+% lbl_inst.WordWrap = 'on';
 %% analysis results (p2)
 % label
 lbl = uilabel(p2);
@@ -228,7 +232,7 @@ end
         filename = string(file_names{n});
         disp([int2str(n) '. Working on: ' filename])
         try
-            [singletAnalysisRow, T,fig_marked] = CMA_burst_analysis_feb17(filename); %get burst and singlet analysis for thsi cell
+            [singletAnalysisRow, T] = CMA_burst_analysis_feb17(filename); %get burst and singlet analysis for thsi cell
             burstT = [burstT; T];
             singT = [singT; singletAnalysisRow];
 

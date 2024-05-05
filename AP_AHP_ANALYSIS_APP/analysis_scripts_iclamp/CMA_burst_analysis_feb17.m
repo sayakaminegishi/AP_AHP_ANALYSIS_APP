@@ -1,4 +1,4 @@
-function [singletAnalysisRow, T, figg] = CMA_burst_analysis_feb17(filename1)
+function [singletAnalysisRow, T] = CMA_burst_analysis_feb17(filename1)
 % uses /MATLAB Drive/continuous2_APfocused/cma_individual_file.m
 %analyzes an abf file from a particular directory to find their freq, interspike interval (isi), and
 %analysis of bursts and singlet APs. Analysis for a SINGLE CELL (i.e. ABF
