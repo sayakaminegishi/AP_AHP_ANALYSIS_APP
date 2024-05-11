@@ -1,5 +1,7 @@
 function AP_AHP_Analysis_IClamp_APP
 
+%v2
+
 % This script is the GUI version my AP_AHP_Iclamp analysis program - for
 %  burst batch detection. Takes in one or more spontaneous current clamp files, does
 %  batch-analysis and gives their burst and properties of AP that occur as
@@ -20,7 +22,7 @@ function AP_AHP_Analysis_IClamp_APP
 
 % Created by: Sayaka (Saya) Minegishi
 % Contact: minegishis@brandeis.edu
-% Last modified: May 5 2024
+% Last modified: May 6 2024
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -28,7 +30,7 @@ clear all
 clf
 close all
 
-
+mode = 1; %1 if sponatneous, 2 if evoked
 currentFolder = pwd;
 addpath('analysis_scripts_iclamp/')  
 savepath
@@ -46,14 +48,23 @@ g.ColumnWidth = {150,'1x'}; %
 %add panel
 p = uipanel(fig);
 p.Title = 'Input Information';
-%add second panel
+%add second panel, for SPONTANEOUS
 p2 = uipanel(fig);
-p2.Title = 'Analyzed Output'; %title of graph
+p2.Title = 'Analyzed Output-Spontaneous'; %title of graph
+
+%second panel, for EVOKED
+p3 = uipanel(fig);
+p3.Title = 'Analyzed Output-Evoked'; %title of graph
+
+
 panelHeight = 400; % Adjust as needed
 
 % Set the positions of the panels
 p.Position = [10, 10, 200, panelHeight];
 p2.Position = [210, 10, 200, panelHeight];
+p3.Position = [210, 10, 200, panelHeight];
+
+p3.Visible = 'off';
 
 %% add components
 
@@ -61,6 +72,7 @@ p2.Position = [210, 10, 200, panelHeight];
 dd2 = uidropdown(p);
 dd2.Items = {'Select analysis mode', 'Evoked', 'Spontaneous'};
 dd2.Position = [10, p.Position(4)-50, 160, 22]; % Adjust position and size of the dropdown within the panel
+dd2.ValueChangedFcn = @(src,event) updateChoice(src,p2,p3);
 
 %select file
 lbl_selectfile = uilabel(p);
@@ -78,19 +90,20 @@ browseButton.Text = 'Browse';
 browseButton.Position = [170, p.Position(4)-120, 60, 22]; % Adjust position and size of the button within the panel
 browseButton.ButtonPushedFcn = @(btn,event) browseButtonCallback(fileEditField);
 
-% %insert image
-% im = uiimage(p);
-% im.ImageSource = "figLuther.png";
-% im.Position = [10, p.Position(4)-500, 450, 300]; % Adjust position and size of the axes below the label
-% 
+%insert image
+im = uiimage(p);
+im.ImageSource = "figLuther.png";
+im.Position = [10, p.Position(4)-500, 300, 300]; % Adjust position and size of the axes below the label
 
-%Axes
-ax = uiaxes(p);
-ax.Position = [10, p.Position(4)-250, 180, 100]; % Adjust position and size of the axes below the label
-title(ax, 'Trace Viewer'); %TODO: specify file name. make it be different for each trace
+% 
+% %Axes
+% ax = uiaxes(p);
+% ax.Position = [10, p.Position(4)-250, 180, 100]; % Adjust position and size of the axes below the label
+% title(ax, 'Trace Viewer'); %TODO: specify file name. make it be different for each trace
 
 %% analysis results (p2)
 % label
+%LAYOUTS FOR SPONTANEOUS:
 lbl = uilabel(p2);
 lbl.Text = "Analysis Results";
 lbl.FontSize = 15;
@@ -132,12 +145,47 @@ lbl_countworked.Visible = 'off'; %make it invisible
 lbl_countworked.FontSize = 12;
 lbl_countworked.Position = [10, p2.Position(4)-380, 180, 22];
 
+%% LAYOUTS FOR EVOKED:
+lbl3 = uilabel(p3);
+lbl3.Text = "Analysis Results";
+lbl3.FontSize = 15;
+lbl3.HorizontalAlignment = 'center'; % Align text to the center horizontally
+lbl3.Position = [10, p2.Position(4)-30, 180, 22]; % Adjust position to be at the top middle of p2
+
+%display table for burst analysis
+uit4 = uitable(p3, "Position",[10, p2.Position(4)-180, 180, 100]);
+uit4.FontSize = 10;
+
+lbl_uit4 = uilabel(p3);
+lbl_uit4.Text = "Singlet AP properties in each cell";
+lbl_uit4.FontSize = 13;
+lbl_uit4.HorizontalAlignment = 'center'; % Align text to the center horizontally
+lbl_uit4.Position = [10, p2.Position(4)-80, 180, 22]; % Adjust position to be at the top middle of p2
+
+%files not working
+
+uit5 = uitable(p3, "Position", [10, p3.Position(4)-340, 180, 20]);
+uit5.FontSize = 10;
+
+lbl_fnw3 = uilabel(p3);
+lbl_fnw3.Text = "Files not working: ";
+lbl_fnw3.FontSize = 12;
+lbl_fnw3.Position = [10, p3.Position(4)-320, 180, 22]; % Adjust position to be at the top middle of p2
+
+
+lbl_countworked3 = uilabel(p3);
+lbl_countworked3.Visible = 'off'; %make it invisible
+lbl_countworked3.FontSize = 12;
+lbl_countworked3.Position = [10, p3.Position(4)-380, 180, 22];
+
+
+
+%LAYOUTS ON THE LEFT PANEL, FOR BOTH SP AND EV
 %to analyze
 analyzeButton = uibutton(p, 'push');
 analyzeButton.Text = 'Analyze';
 analyzeButton.Position = [10, p.Position(4)-150, 60, 22]; % Adjust position and size of the button within the panel
 analyzeButton.ButtonPushedFcn = @(btn,event) analyzeButtonCallback(ax, uit, uit2, uit3, lbl_countworked, currentFolder); %TODO: Change this
-
 
 
 % label with creator info
@@ -178,7 +226,7 @@ end
             for k = 1:numel(filename)
                 sourceFile = fullfile(pathname, filename{k});
                 destFile   = fullfile(pdest, filename{k});  
-                copyfile(sourceFile, destFile);
+                movefile(sourceFile, destFile);
        
             end
         end
@@ -269,4 +317,13 @@ end
     end
 
 
-
+function updateChoice(src,p2,p3)
+val = src.Value;
+if val=='Evoked'
+    p2.Visible = 'off'; %make p2 invisible
+    p3.Visible = 'on'; %make p3 visible
+else
+    p3.Visible = 'off'; 
+    p2.Visible = 'on'; %
+end
+end

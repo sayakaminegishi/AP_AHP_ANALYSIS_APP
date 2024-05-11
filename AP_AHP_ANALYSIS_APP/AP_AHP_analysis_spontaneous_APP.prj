@@ -1,0 +1,76 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="3535506582" file="/Users/sayakaminegishi/MATLAB/Projects/AP_AHP_ANALYSIS_APP/AP_AHP_ANALYSIS_APP/AP_AHP_analysis_spontaneous_APP.prj" location="/Users/sayakaminegishi/MATLAB/Projects/AP_AHP_ANALYSIS_APP/AP_AHP_ANALYSIS_APP" name="AP_AHP_analysis_spontaneous_APP" target="target.mlapps" target-name="Package App">
+    <param.appname>AP_AHP_analysis_spontaneous_APP</param.appname>
+    <param.authnamewatermark>SAYAKA (SAYA) MINEGISHI</param.authnamewatermark>
+    <param.email>minegishis@brandeis.edu</param.email>
+    <param.company>Brandeis University</param.company>
+    <param.icon />
+    <param.icons />
+    <param.summary>batch AP and AHP analysis for spontaneous scripts</param.summary>
+    <param.description />
+    <param.screenshot />
+    <param.version>1.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>${PROJECT_ROOT}</param.output>
+    <param.guid>0bc31343-7930-459f-8eed-5829a5404d0b</param.guid>
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.description />
+      <param.screenshot />
+      <param.version />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.output />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/AP_AHP_Analysis_IClamp_APP.m</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/CMA_burst_analysis_feb17.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/abf2load.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/combine_sweeps.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/extract_waveform3.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/find_alpha1.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/find_alpha2.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/find_burstMatrix2.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/find_isi.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/find_nearest_value.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/get_isi_histogram.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/get_spikelocations.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/ms_to_sampleunits.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/sampleunits_to_ms.m</file>
+      <file>/Users/sayakaminegishi/MATLAB/Projects/CNO_Analysis_IClamp/analysis_scripts_iclamp/singletSpikeAnalysis5.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="/Users/sayakaminegishi/MATLAB/Projects/AP_AHP_ANALYSIS_APP" name="AP_AHP_ANALYSIS_APP" optional="false">/Users/sayakaminegishi/MATLAB/Projects/AP_AHP_ANALYSIS_APP/AP_AHP_ANALYSIS_APP</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2024a.app</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>12.0.1</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
